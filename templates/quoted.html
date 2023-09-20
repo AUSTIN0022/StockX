@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <div>
+        <p style="color: white;">A share of {{quote.name}} {{quote.symbol}} costs {{quote['price']|usd}}</p>
+    </div>
+{% endblock %}
+
