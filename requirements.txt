@@ -6,4 +6,3 @@ gunicorn
 plotly
 numpy
 datatime
-dateutil
