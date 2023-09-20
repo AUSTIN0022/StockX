@@ -6,3 +6,4 @@ gunicorn
 plotly
 numpy
 pytz
+yfinance
