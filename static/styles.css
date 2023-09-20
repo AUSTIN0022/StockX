@@ -81,9 +81,8 @@ body {
 
 
   .chart_div {
-    margin-top: 20px;;
-    margin-left: 225px;
-    margin-right:225px;;
-    width: 60%;
-    height: 50%;
+   display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; 
   }
