@@ -3,7 +3,7 @@ Flask
 Flask-Session
 requests
 gunicorn
-plotly.graph_objs
+plotly
 numpy
 datatime
 dateutil
