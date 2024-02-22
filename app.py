@@ -40,7 +40,7 @@ db = SQL("sqlite:///finance.db")
 # Configure app to use the twilio api for OTP
 app.secret_key = secrets.token_urlsafe(32)
 app.config['TWILIO_SID'] = 'AC8c3d87cbe50f6db1f55d959f9f94197e'
-app.config['TWILIO_AUTH_TOKEN'] = '650ba660bd54bcdd474db8c57fac07b3'
+app.config['TWILIO_AUTH_TOKEN'] = '565cdd41db7cd689e92106ff85d31232'
 app.config['VERIFY_SID'] = 'VAb037b7729f50b48508eda4d053703800'
 app.config['TWILIO_PHONE_NUMBER'] = '+917755910420'
 app.config['messaging_service_sid'] = 'MG9752274e9e519418a7406176694466fa'
