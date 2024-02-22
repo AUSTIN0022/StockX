@@ -1,4 +1,4 @@
-# StockX Documentation
+# StockX: Virtual Stock Trading Platform
 
 ## Introduction
 
@@ -14,7 +14,7 @@ I consciously designed the web interface to be clean, intuitive, and mobile-frie
 The StockX application is currently hosted at:
 
 
-Demo link: https://www.stockx.com
+Demo link: https://stockx-7bca.onrender.com
 
 To run the application locally:
 
