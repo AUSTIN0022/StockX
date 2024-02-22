@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Confirm Payment
+{% endblock %} 
+
+{% block main %}
+    <main class="container py-5 text-center">
+        <h2>Confirm Payment</h2>
+        <p>Order ID: {{ order_id }}</p>
+        <p>Amount: {{ amount|usd }}</p>
+
+        <!-- Razorpay Integration -->
+        <form action="/verify_razorpay_payment" method="post">
+            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                    data-key="{{ razorpay_key_id }}"
+                    data-amount="{{ amount * 100 }}"
+                    data-currency="USD"
+                    data-order_id="{{ order_id }}"
+                    data-buttontext="Pay with Razorpay"
+                    data-name="Your App Name"
+                    data-description="Payment for adding cash"
+                    data-image="path/to/your/logo.png"
+                    data-prefill.name="{{ user.username }}"
+                    data-prefill.email="{{ user.email }}"
+                    data-theme.color="#F37254">
+            </script>
+            <button type="submit" class="btn btn-primary">Complete Payment</button>
+        </form>
+    </main>
+{% endblock %}

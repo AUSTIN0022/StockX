@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Razorpay Payment
+{% endblock %} 
+
+{% block main %}
+    <main class="container py-5 text-center">
+        <h2>Complete Your Payment</h2>
+        <p>Amount to Add: {{ amount_to_add|usd }}</p>
+
+        <!-- Razorpay Checkout Button -->
+        <form id="paymentForm">
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="{{ razorpay_key }}"
+                data-amount="{{ amount_to_add * 100 }}"  <!-- Amount in paise -->
+                data-name="StockX"
+                data-description="Add Cash to Your Account"
+                data-image="https://your-logo-url.png"  <!-- Your logo URL -->
+                data-prefill.email="{{ user_email }}"
+                data-prefill.contact="{{ user_phone }}"
+                data-theme.color="#F37254"
+            ></script>
+            <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+        </form>
+
+        <button class="btn btn-primary mt-3" onclick="submitRazorpayPayment()">Complete Payment</button>
+    </main>
+
+    <script>
+        function submitRazorpayPayment() {
+            var options = {
+                "key": "{{ razorpay_key }}",
+                "amount": {{ amount_to_add * 100 }},  // Amount in paise
+                "name": "StockX",
+                "description": "Add Cash to Your Account",
+                "handler": function (response){
+                    document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                    document.getElementById('paymentForm').submit();
+                },
+                "prefill": {
+                    "email": "{{ user_email }}",
+                    "contact": "{{ user_phone }}"
+                },
+                "theme": {
+                    "color": "#F37254"
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+{% endblock %}

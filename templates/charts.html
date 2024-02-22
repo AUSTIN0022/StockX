@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Charts
+{% endblock %}
+
+{% block main %}
+
+    <div class="chart_div" id="chart_div"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        // Remove double curly braces when referencing chart_data
+        var chartData = {{ chart_data|tojson|safe }};
+        var trace1 = chartData[0];
+        var trace2 = chartData[1];
+    
+        trace2.marker = {
+            color: 'green'
+        };
+        
+        trace1.marker = {
+            color: 'blue'
+        };
+
+        var layout = {
+            title: 'Stock Price and Moving Average',
+            font: {
+                color: 'white'
+            },
+            xaxis: {
+                title: 'Date',
+                color: 'white'
+            },
+            yaxis: {
+                title: 'Price',
+                color: 'white'
+            },
+            plot_bgcolor: '#1f2937',
+            paper_bgcolor: '#1f2937',
+            width: 900,
+            height: 500,
+            margin: { //margin (in pixels)
+                t: 60,  // Top
+                b: 55,  // Bottom
+                l: 55,  // Left 
+                r: 0   // Right
+            }
+        };
+        var data = [trace1, trace2];
+        
+        Plotly.newPlot('chart_div', data, layout);
+    </script>
+
+{% endblock %}

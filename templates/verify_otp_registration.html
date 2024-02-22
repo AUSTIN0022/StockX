@@ -1,0 +1,19 @@
+<!-- templates/verify_otp_registration.html -->
+{% extends "layout.html" %}
+
+{% block title %}
+    Verify OTP for Registration
+{% endblock %}
+
+{% block main %}
+    <form method="post" action="{{ url_for('verify_otp_registration') }}">
+        <h1  class="report-text">Verify OTP</h1>
+        <p  class="report-text"><b>Enter the OTP sent to {{ phone_number }}:</b></p>
+        <div class="mb-3">
+            <input  autocomplete="off" autofocus class="form-control mx-auto w-auto" type="text" placeholder=" Enter OTP" id="otp" name="otp" required>
+            <input type="hidden" name="phone_number" value="{{ phone_number }}">
+        </div>
+        <button class="btn btn-primary" type="submit">Verify OTP</button>
+    </form>
+{% endblock %}
+

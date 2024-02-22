@@ -1,0 +1,259 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size:50px;
+    color: white;
+}
+
+/* Colors for brand */
+nav .navbar-brand .name {
+    color: #2563eb;
+}
+
+nav .nav-link {
+  color: white;
+}
+nav .navbar-toggler-icon {
+  color: white;
+}
+
+
+
+body {
+    background-color:#1f2937;
+}
+
+.fcolor {
+  color: white;
+}
+
+
+.tcolor {
+    color: white;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+  }
+
+  .fa {
+    padding: 10px;
+    font-size: 30px;
+    width: 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+
+  .fa-linkedin {
+   
+    color: white;
+  }
+
+  .fa-instagram {
+    
+    color:white;
+  }
+  .fa-google {
+    color: white;
+  }
+  .fa-github {
+    color: white;
+  }
+
+  .logo {
+    height: 70px;
+    width:75px;
+  }
+
+
+  .chart_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+
+  .search-container {
+    display: flex;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    height: 30px;
+    width: 175px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .search-button {
+    height: 30px;
+    width: 30x;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0;
+    background-color: #f2f2f2;
+  }
+  .search-icon {
+    margin-right: 5px; 
+  }
+
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(8,85,230, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .custom-toggler.navbar-toggler {
+    border-color: rgb(8, 85, 230);
+  } 
+
+  .portfolio {
+    color: white;
+  }
+
+  .chart-container {
+    width: 600;
+    height: 400;
+    margin: 60 55 55 0;
+  }
+
+
+  .report-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100;
+}
+
+.scrollable-table {
+    max-height: 300px; /* Adjust the max height as needed */
+    overflow-y: auto;
+    max-width: 820px;
+    border-radius: 10px;
+}
+.table{
+  color:white;
+  border-radius: 10px;
+}
+
+#fixed-header-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+#fixed-header-table thead {
+  position: sticky;
+  top: 0;
+  background-color:rgba(19, 49, 104, 1); /* Adjust the background color as needed */
+  z-index: 1;
+}
+
+.report-text {
+  color: white;
+}
+
+
+.stocknews{
+    text-align: left;
+    color:white;
+    max-width: 820px;
+}
+
+
+
+.table-responsive {
+    min-height: .01%;
+    overflow-x: auto;
+}
+
+
+
+table.table-condensed.table-sheet {
+    border-collapse: collapse;
+    width: 850px;
+    overflow-x: scroll;
+    display: block;
+}
+.table-condensed.table-sheet thead, .table-condensed.table-sheet tbody {
+    display: block;
+}
+.table-condensed.table-sheet tbody {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 350px;
+}
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid transparent;
+}
+.table-condensed.table-sheet td, .table-condensed.table-sheet th {
+    min-width: 150px;
+    height: 20px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+} 
+.tablehead {
+
+    color: #fff;
+}
+.table-condensed>thead.tablehead>tr>th {
+    padding: 20px 10px 20px 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 14px;
+}
+.table-condensed>tbody.tablebody>tr>td {
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+}
+.table-sheet>tbody>tr:nth-of-type(even) {
+    
+    min-width: 100%;
+    display: inline-block;
+    border-bottom: 2px solid #fff;
+}
+.table-sheet>tbody>tr:nth-of-type(odd) {
+    
+    min-width: 100%;
+    display: inline-block;
+    border-bottom: 2px solid #fff;
+}
+
+/* Add the following styles to your CSS */
+
+.sticky-column {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: #fff; /* Set your background color as needed */
+}
+
+.table-condensed.table-sheet thead, .table-condensed.table-sheet tbody {
+    display: block;
+}
+
+.table-condensed.table-sheet tbody {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 350px;
+}
+
+.table-condensed.table-sheet td.sticky-column,
+.table-condensed.table-sheet th.sticky-column {
+    min-width: 150px;
+    max-width: 150px;
+    white-space: nowrap;
+}
+
+.table-condensed.table-sheet td.sticky-column {
+    background-color: grey; /* Match your table background color */
+}

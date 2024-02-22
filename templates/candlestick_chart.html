@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Candlestick Chart - {{ symbol }}
+{% endblock %} 
+
+{% block main %}
+    <main class="container py-5 text-center">
+        <h2>Candlestick Chart - {{ symbol }}</h2>
+
+        <!-- Display Candlestick Chart Here -->
+        <div id="candlestick-chart"></div>
+
+        <!-- Include Plotly library -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <script>
+            // Create candlestick chart
+            var chart_data = {{ chart_data|tojson|safe }};
+            
+            var trace = {
+                type: "candlestick",
+                x: chart_data.x,
+                close: chart_data.close,
+                high: chart_data.high,
+                low: chart_data.low,
+                open: chart_data.open,
+                increasing: {line: {color: 'green'}},
+                decreasing: {line: {color: 'red'}},
+            };
+
+            var layout = {
+                title: `${chart_data.symbol} Candlestick Chart`,
+                xaxis: {
+                    rangeslider: {
+                        visible: false
+                    }
+                },
+                yaxis: {
+                    autorange: true,
+                }
+            };
+
+            Plotly.newPlot('candlestick-chart', [trace], layout);
+        </script>
+    </main>
+{% endblock %}

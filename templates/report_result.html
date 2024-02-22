@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Report Result
+{% endblock %}
+
+{% block main %}
+
+    <div class="report-container">
+        <div>
+            <form action="/report" method="post">
+                <div class="row">
+                    <div class="col">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="company" name="company" placeholder="company name" type="text">
+                    </div>
+                    <div class="col">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="start_date" name="start_date" placeholder="Start Date" type="date">
+                    </div>
+                    <div class="col">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="end_date" name="end_date" placeholder="End Date" type="date">
+                    </div>
+                </div>
+                <br>
+                <div class="col">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+        <br><br>
+        <div class="chart-container">
+            <div class="chart_div" id="candlestick"></div>
+        </div>
+
+        <!-- Navigation tabs -->
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" data-target="table1-tab">Priceing Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-target="table2-tab">Fundmental Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-target="table3-tab">Top 10 News</a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content">
+            <!-- Table 1 Tab Content -->
+            <div class="tab-pane fade show active" id="table1-tab">
+                <h2 class="report-text">Price Movements</h2>
+                <div class="scrollable-table">
+                    <table class="table table-bordered" id="fixed-header-table">
+                        <!-- Table 1 Content Here -->
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Open</th>
+                                <th>High</th>
+                                <th>Low</th>
+                                <th>Close</th>
+                                <th>Adj Close</th>
+                                <th>Volume</th>
+                                <th>% Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in tableData %}
+                                <tr>
+                                    <td>{{ data.Date }}</td>
+                                    <td>{{ data.Open }}</td>
+                                    <td>{{ data.High }}</td>
+                                    <td>{{ data.Low }}</td>
+                                    <td>{{ data.Close }}</td>
+                                    <td>{{ data['Adj Close'] }}</td>
+                                    <td>{{ data.Volume }}</td>
+                                    <td>{{ data['% Change'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="report-text">
+                    <p>Annual Return: {{ annual_return }} %</p>
+                    <p>Standard Deviation: {{ std_dev*100 }} %</p>
+                    <p>Risk-Adjusted Return: {{ risk_adj_ret }}</p>
+                </div>
+            </div>
+
+            <!-- Table 2 Tab Content -->
+            <div class="tab-pane fade" id="table2-tab">
+                    <!-- Table 2 Content Here -->
+                    <h2 class="report-text">Fundmental Data</h2>
+                    <!--Balance Sheet start-->
+                    <h3 class="report-text">Balance Sheet</h3>
+                    <div class="tablewrapper">                         
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-sheet" id="table1">
+                                <thead class="tablehead">
+                                    <tr>
+                                        <th class="sticky-column">Item</th>
+                                           {% for column in balance_sheet.columns %}
+                                            <th>{{ column }}</th>
+                                            {% endfor %}
+                                        </tr>                              
+                                </thead>
+                                <tbody class="tablebody">
+                                    {% for index, row in balance_sheet.iterrows() %}
+                                        <tr>
+                                            <td class="sticky-column">{{ index }}</td>
+                                                {% for value in row %}
+                                                    <td class="numeric-cell">{{ "{:,.2f}".format(value|float) }}</td>
+                                                {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>                                     
+                        </div>
+                    </div>
+                    <script>
+                        $('table').on('scroll', function () {
+      
+                            $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
+                        });
+                    </script>
+                    <br><br>
+                    <!--Balance Sheet End-->
+                    <!--Income Statement Start-->
+                    <h3 class="report-text">Income Statement</h3>
+                    <div class="tablewrapper">                         
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-sheet" id="table1">
+                                <thead class="tablehead">
+                                    <tr>
+                                        <th class="sticky-column">Item</th>
+                                           {% for column in Income_sheet.columns %}
+                                            <th>{{ column }}</th>
+                                            {% endfor %}
+                                        </tr>                              
+                                </thead>
+                                <tbody class="tablebody">
+                                    {% for index, row in Income_sheet.iterrows() %}
+                                        <tr>
+                                            <td class="sticky-column">{{ index }}</td>
+                                                {% for value in row %}
+                                                    <td class="numeric-cell">{{ "{:,.2f}".format(value|float) }}</td>
+                                                {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>                                     
+                        </div>
+                    </div>
+                    <!--Income Statement End-->
+                    <br><br>
+                    <!--Cash Flow Statement Start-->
+                    <h3 class="report-text">Cash Flow Statement</h3>
+                    <div class="tablewrapper">                         
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-sheet" id="table1">
+                                <thead class="tablehead">
+                                    <tr>
+                                        <th class="sticky-column">Item</th>
+                                           {% for column in cash_flow.columns %}
+                                            <th>{{ column }}</th>
+                                            {% endfor %}
+                                        </tr>                              
+                                </thead>
+                                <tbody class="tablebody">
+                                    {% for index, row in cash_flow.iterrows() %}
+                                        <tr>
+                                            <td class="sticky-column">{{ index }}</td>
+                                                {% for value in row %}
+                                                    <td class="numeric-cell">{{ "{:,.2f}".format(value|float) }}</td>
+                                                {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>                                     
+                        </div>
+                    </div>
+                    <!--Cash Flow Statement End-->
+            </div>
+            <!--Stock News start.....-->
+            <div class="tab-pane fade" id="table3-tab">
+                <div class="stocknews">
+                    <h2>Stocks News</h2>
+                    {% for i in range(10) %}
+                        {% if i < df_news.shape[0] %}
+                            <h2>News {{ i + 1 }}</h2><br>
+                            <p><b>{{ df_news.iloc[i]['published'] }}</b></p><br>
+                            <p><b>{{ df_news.iloc[i]['title'] }}</b></p><br>
+                            <p><b>{{ df_news.iloc[i]['summary'] }}</b></p><br>
+                            <p><b>Title Sentiment {{ df_news.iloc[i]['sentiment_title'] }}</b></p>
+                            <p><b>News Sentiment {{ df_news.iloc[i]['sentiment_summary'] }}</b></p><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>    
+            <!--Stock News End.....-->        
+
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+        var graph = {{ fig | safe }};
+        var tableData = {{ tableData | tojson | safe }};
+        var chartDiv = document.getElementById('candlestick');
+
+        // Use Plotly.react to update the chart
+        Plotly.react(chartDiv, graph.data, graph.layout);
+
+        // JavaScript to handle tab switching
+        $(document).ready(function () {
+            $('.nav-link').on('click', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.tab-pane').removeClass('show active');
+                $('#' + target).addClass('show active');
+            });
+        });
+    </script>
+
+{% endblock %}

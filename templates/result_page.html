@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Stock Information - {{ symbol }}</title>
+{% endblock %}
+
+{% block main %}
+    <h1>Stock Information - {{ symbol }}</h1>
+
+    <div>
+        {% if report_filename %}
+            <!-- Display the ProfileReport here -->
+            {% include report_filename %}
+        {% else %}
+            <p>No stock information available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

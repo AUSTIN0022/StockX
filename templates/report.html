@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Report
+{% endblock %}
+
+{% block main %}
+   <div>
+    <form action="/report" method="post">
+        <div class="row">
+            <div class="col">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="company" name="company" placeholder="company name" type="text">
+            </div>
+            <div class="col">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="start_date" name="start_date" placeholder="Start Date" type="date">
+            </div>
+            <div class="col">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="end_date" name="end_date" placeholder="End Date" type="date">
+            </div>
+        </div><br>
+        <div class="col">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+   </div>
+    
+{% endblock %}
+
