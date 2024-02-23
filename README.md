@@ -8,6 +8,9 @@ My key goal with StockX is to provide an engaging, realistic experience for user
 
 I consciously designed the web interface to be clean, intuitive, and mobile-friendly. Interactive visualizations help users spot trends and opportunities. By focusing on learnability, my intention is for even investment novices to quickly grasp platform workflows.
 
+## Video Demo
+
+https://github.com/AUSTIN0022/StockX/assets/95069137/35f68e00-c30d-451f-94c3-96e9d1196fdd
 
 ## Live Link & Local Setup
 
