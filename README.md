@@ -10,7 +10,7 @@ I consciously designed the web interface to be clean, intuitive, and mobile-frie
 
 ## Video Demo
 
-https://github.com/AUSTIN0022/StockX/assets/95069137/35f68e00-c30d-451f-94c3-96e9d1196fdd
+https://github.com/AUSTIN0022/StockX/assets/95069137/c7f36a98-ead7-43ab-9710-e0e53d092391
 
 ## Live Link & Local Setup
 
