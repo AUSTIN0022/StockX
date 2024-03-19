@@ -308,10 +308,11 @@ def register():
             return apology("Must provide phone number")
 
         # Add email and phone number validation
+        # For Email
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         if not re.fullmatch(regex, request.form.get("email")):
             return apology("Enter a valid email")
-
+        # For Phone number
         phone_regex = r"(\+\d{1,3})?\s?\(?\d{1,4}\)?[\s.-]?\d{3}[\s.-]?\d{4}"
         if not re.fullmatch(phone_regex, request.form.get("phone")):
             return apology("Enter a valid phone number")
