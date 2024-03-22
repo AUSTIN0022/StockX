@@ -17,7 +17,7 @@ https://github.com/AUSTIN0022/StockX/assets/95069137/c7f36a98-ead7-43ab-9710-e0e
 The StockX application is currently hosted at:
 
 
-Demo link: https://stockx-7bca.onrender.com
+Demo link: https://stockx-7115.onrender.com
 
 To run the application locally:
 
