@@ -499,9 +499,6 @@ def search():
 
             flash(f"{company_name} ticker symbol is {symbol}")
             return redirect(url_for("index"))
-    else:
-        # Handle GET request for displaying search form
-        return render_template("search.html")
 
 
 @app.route("/report", methods=["GET", "POST"])
