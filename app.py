@@ -42,7 +42,7 @@ app.secret_key = secrets.token_urlsafe(32)
 app.config['TWILIO_SID'] = 'AC8c3d87cbe50f6db1f55d959f9f94197e'
 app.config['TWILIO_AUTH_TOKEN'] = 'ac2a2acf384149c7888fe9fe27b91477'
 app.config['VERIFY_SID'] = 'VAb037b7729f50b48508eda4d053703800'
-app.config['TWILIO_PHONE_NUMBER'] = '+917653910980'
+app.config['TWILIO_PHONE_NUMBER'] = '+17653910980'
 app.config['messaging_service_sid'] = 'MG9752274e9e519418a7406176694466fa'
 
 client = Client(app.config['TWILIO_SID'], app.config['TWILIO_AUTH_TOKEN'])
