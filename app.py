@@ -42,8 +42,9 @@ app.secret_key = secrets.token_urlsafe(32)
 app.config['TWILIO_SID'] = 'AC8c3d87cbe50f6db1f55d959f9f94197e'
 app.config['TWILIO_AUTH_TOKEN'] = 'ac2a2acf384149c7888fe9fe27b91477'
 app.config['VERIFY_SID'] = 'VAb037b7729f50b48508eda4d053703800'
-app.config['TWILIO_PHONE_NUMBER'] = '+17653910980'
-app.config['messaging_service_sid'] = 'MG9752274e9e519418a7406176694466fa'
+app.config['TWILIO_PHONE_NUMBER'] = '+917755910420'
+#app.config['messaging_service_sid'] = 'MG9752274e9e519418a7406176694466fa'
+
 
 client = Client(app.config['TWILIO_SID'], app.config['TWILIO_AUTH_TOKEN'])
 
@@ -72,10 +73,10 @@ def index():
 
     total_value = cash
     grand_total = cash
-
+    
     for data in stock_data:
-        qoute = lookup(data["symbol"])
-        data["name"] = qoute["name"]
+        qoute = lookup(data["symbol"])        
+        data["name"] = qoute["symbol"]
         data["price"] = qoute["price"]
         data["value"] = data["price"] * data["total_shares"]
         total_value += data["value"]
@@ -205,9 +206,14 @@ def quote():
 
 def send_otp_via_sms(to, channel="sms"):
     try:
+        message = "Your StockX OTP is :"
         verification = client.verify.v2.services(app.config['VERIFY_SID']) \
             .verifications \
             .create(to=to, channel=channel)
+            
+        for record in verification:
+            print(record.translations)
+                
         return verification.status
     except Exception as e:
         return f"Error sending OTP: {str(e)}"
@@ -215,6 +221,7 @@ def send_otp_via_sms(to, channel="sms"):
 
 def verify_otp(phone_number, user_provided_otp):
     try:
+        
         print(phone_number, user_provided_otp)
         verification_check = client.verify.v2.services(app.config['VERIFY_SID']) \
             .verification_checks \
@@ -268,26 +275,6 @@ def verify_otp_registration():
         return render_template("verify_otp_registration.html", phone_number=phone_number)
 
 
-
-@app.route("/verify_otp_route", methods=["GET","POST"])
-def verify_otp_route():
-    phone_no = session.get("phone")
-
-    if request.method == "POST":
-        otp = request.form.get("otp")
-        success, status = verify_otp(phone_no, otp)
-
-        if success:
-            flash(f"Approved")
-            return render_template("login.html")
-        else:
-            flash(f"Failed: {status}")
-            return render_template("verify_otp.html", phone_number=phone_no)
-
-    return render_template('verify_otp.html', phone_number=phone_no)
-
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
@@ -321,8 +308,11 @@ def register():
         session["password"] = request.form.get("password")
         session["email"] = request.form.get("email")
         session["phone"] = request.form.get("phone")
+        
+        channel = request.form.get("channel")
+        print("\n\nCHANNEL:- ",channel,"\n\n")
         # Send OTP via SMS
-        if send_otp_via_sms(request.form.get("phone")) != 0:
+        if send_otp_via_sms(request.form.get("phone"),channel) != 0:
             print(f"Error sending OTP for {request.form.get('phone')}")
             return render_template("verify_otp_registration.html", phone_number=request.form.get("phone"))
 
