@@ -1,4 +1,4 @@
-# StockX Documentation
+# StockX: Virtual Stock Trading Platform
 
 ## Introduction
 
@@ -8,13 +8,16 @@ My key goal with StockX is to provide an engaging, realistic experience for user
 
 I consciously designed the web interface to be clean, intuitive, and mobile-friendly. Interactive visualizations help users spot trends and opportunities. By focusing on learnability, my intention is for even investment novices to quickly grasp platform workflows.
 
+## Video Demo
+
+https://github.com/AUSTIN0022/StockX/assets/95069137/c7f36a98-ead7-43ab-9710-e0e53d092391
 
 ## Live Link & Local Setup
 
 The StockX application is currently hosted at:
 
 
-Demo link: https://www.stockx.com
+Demo link: https://stockx-7115.onrender.com
 
 To run the application locally:
 
