@@ -6,6 +6,7 @@
 
 {% block main %}
     <form action="/register" method="post">
+        <h1  class="report-text">Registration</h1><br>
         <div class="mb-3">
             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required>
         </div>
@@ -20,6 +21,12 @@
         </div>
         <div class="mb-3">
             <input class="form-control mx-auto w-auto" id="phone" name="phone" placeholder="Phone Number" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input" id="sms" name="channel" value="sms" type="radio" checked>
+            <label class="form-check-label report-text" for="sms">SMS</label>
+            <input class="form-check-input" id="call" name="channel" value="call"  type="radio">
+            <label class="form-check-label report-text" for="call">Call</label>
         </div>
         <button class="btn btn-primary" type="submit">Register</button>
     </form>
