@@ -5,30 +5,38 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/register" method="post">
-        <h1  class="report-text">Registration</h1><br>
-        <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required>
-        </div>
-        <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="Email" type="text" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" id="password" name="confirmation" placeholder="Password (again)" type="password" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" id="phone" name="phone" placeholder="Phone Number" type="text" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-check-input" id="sms" name="channel" value="sms" type="radio" checked>
-            <label class="form-check-label report-text" for="sms">SMS</label>
-            <input class="form-check-input" id="call" name="channel" value="call"  type="radio">
-            <label class="form-check-label report-text" for="call">Call</label>
-        </div>
-        <button class="btn btn-primary" type="submit">Register</button>
-    </form>
+<div class="login-container">
+    <div class="login-form row">
+        <form action="/register" method="post">
+            <h1  class="report-text">Registration</h1><br>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="Email" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="confirmation" placeholder="Password (again)" type="password" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="phone" name="phone" placeholder="Phone Number" type="text" required>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-4">
+                    <input class="form-check-input " id="sms" name="channel" value="sms" type="radio" checked>
+                    <label class="form-check-label report-text ms-1" for="sms">SMS</label>
+                </div>
+                <div class="col-4">
+                    <input class="form-check-input " id="call" name="channel" value="call"  type="radio">
+                    <label class="form-check-label report-text ms-1 " for="call">Call</label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
  
