@@ -5,15 +5,24 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
-        <h1  class="report-text">Login</h1><br>
-
-        <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
+<div class="login-container">
+    <div class="login-form row">
+        
+        <form action="/login" method="post" class="needs-validation" novalidate>
+            <h1  class="report-text">Login</h1><br>
+    
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required>
+                <div class="invalid-feedback">
+                    enter valid username!
+                  </div>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" required>
+            </div>
+            <button class="btn btn-primary mt-3" type="submit">Log In</button>
+        </form>
+        
+    </div>
+</div>
 {% endblock %}

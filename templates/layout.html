@@ -68,26 +68,40 @@
                 </div>
             </div>
         </nav>
-
-        {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-primary mb-0 text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+            {% if errors %}
+            <div class="flash-message">
+                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    {{ errors | join(" ") }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </header>
-        {% endif %}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+            {% if messages %}
+            <div class="flash-message">
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                    {{ messages | join(" ") }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            {% endif %}
+        {% endwith %}
+
 
         <main class="container-fluid py-5 text-center">
             {% block main %}{% endblock %}
         </main>
 
-        <footer class="mb-5 small text-center fcolor">
-           <!-- Developed by <a href="https://linktr.ee/_.austin._">Austin Makasare</a> <br>
+        <footer class="mt-5 mb-5 small text-center fcolor">
+            Developed by <a href="https://linktr.ee/_.austin._">Austin Makasare</a> <br>
                 <a href="https://www.linkedin.com/in/austin-makasare/" class="fa fa-linkedin"></a>
                 <a href="https://www.instagram.com/_.austinmakasare._/" class="fa fa-instagram"></a>
                 <a href="https://github.com/AUSTIN0022" class="fa fa-github"></a>
                 <br>
-            -->
+            
         </footer>
 
     </body>

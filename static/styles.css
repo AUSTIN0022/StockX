@@ -257,3 +257,27 @@ table.table-condensed.table-sheet {
 .table-condensed.table-sheet td.sticky-column {
     background-color: grey; /* Match your table background color */
 }
+
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+
+.login-form {
+    border-radius: 10px;
+    padding: 30px 35px 30px 35px;
+    align-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 10px 1px #2563eb, -3px -3px 10px 1px #2563eb;
+}
+
+
+.flash-message {
+    width:300px;
+    margin:auto;
+}

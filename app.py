@@ -37,13 +37,18 @@ Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Configure app to use the twilio api for OTP
 app.secret_key = secrets.token_urlsafe(32)
-app.config['TWILIO_SID'] = 'AC8c3d87cbe50f6db1f55d959f9f94197e'
-app.config['TWILIO_AUTH_TOKEN'] = 'ac2a2acf384149c7888fe9fe27b91477'
-app.config['VERIFY_SID'] = 'VAb037b7729f50b48508eda4d053703800'
-app.config['TWILIO_PHONE_NUMBER'] = '+917755910420'
-#app.config['messaging_service_sid'] = 'MG9752274e9e519418a7406176694466fa'
+app.config['TWILIO_SID'] = os.getenv('TWILIO_SID')
+app.config['TWILIO_AUTH_TOKEN'] = os.getenv('TWILIO_AUTH_TOKEN')
+app.config['VERIFY_SID'] = os.getenv('VERIFY_SID')
+app.config['TWILIO_PHONE_NUMBER'] = os.getenv('TWILIO_PHONE_NUMBER')
+#app.config['messaging_service_sid'] = os.getenv('messaging_service_sid')
 
 
 client = Client(app.config['TWILIO_SID'], app.config['TWILIO_AUTH_TOKEN'])
@@ -96,13 +101,16 @@ def buy():
         shares = request.form.get("shares")
 
         if not symbol:
-            return apology("must povide symbol")
+            flash(u'must povide symbol', 'error')
+            return render_template("buy.html")
         elif not shares or not shares.isdigit() or int(shares) <= 0:
-            return apology("must provide  position number of shares")
-
+            flash(u'must povide position number of shares', 'error')
+            return render_template("buy.html")
+       
         check = lookup(symbol)
         if check is None:
-            return apology("stock not exist")
+            flash(u'Enter a valid Stock', 'error')
+            return render_template("buy.html")
 
         user_id = session["user_id"]
 
@@ -112,15 +120,15 @@ def buy():
                           user_id)[0]["cash"]
 
         if cash < total_cost:
-            return apology("not enough cash")
-
+            flash(u'not enough cash', 'error')
+            return render_template("buy.html")
         # update users table
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?;", total_cost, user_id)
 
         #add the purchase to the history table
         db.execute("INSERT INTO transactions (user_id, symbol, shares ,price) VALUES(?, ?, ?, ?)", user_id, symbol, shares, price)
 
-        flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}")
+        flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}", "success")
         return redirect("/")
 
     elif request.method == "GET":
@@ -142,28 +150,34 @@ def history():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
+    error=None
     # Forget any user_id
     session.clear()
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            flash(u'Username cannot be empty', 'error')
+            return render_template("login.html")
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            flash(u'Enter a valid password', 'error')
+            return render_template("login.html")
+            
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            flash('Invalid credentials', 'error')
+            return render_template("login.html")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
+        flash("you are successfuly logged in", "success")
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
@@ -191,14 +205,16 @@ def quote():
 
         # check if symbol is Enter
         if not request.form.get("symbol"):
-            return apology("Enter symbol")
+            flash(u'Enter symbol', 'error')
+            return render_template("quote.html")
 
         quoted = lookup(request.form.get("symbol").upper())
 
         if quoted != None:
             return render_template("quoted.html", quote=quoted)
         else:
-            return apology("stocks does not exit")
+            flash(u'Stock does not exit ', 'error')
+            return render_template("quote.html")
 
     elif request.method == "GET":
         return render_template("quote.html")
@@ -254,6 +270,7 @@ def verify_otp_registration():
          # Check if username already taken, return an apology
         check = db.execute("SELECT * FROM users WHERE username = ?;", session.get("username"))
         if len(check) != 0:
+            flash(u'Username already taken ', 'error')
             return apology("Username already taken")
         else:
             # Generate a hash of the password

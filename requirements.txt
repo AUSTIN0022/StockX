@@ -16,3 +16,4 @@ stocknews
 twilio
 Werkzeug
 cachelib
+python-dotenv
