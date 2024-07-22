@@ -286,9 +286,23 @@ def verify_otp_registration():
             NewPhone = session.get("phone")
             # Insert the data in the database
             try:
+                # Enter the new User in Database
                 db.execute("INSERT INTO users (username, hash, email, phone_no) VALUES (?, ?, ?, ?);", NewUser, newhash, NewEmail, NewPhone)
-                print("User registered successfully")
-                return render_template("login.html")
+                
+                rows = db.execute("SELECT * FROM users WHERE username = ?", session.get("username"))
+
+                # Ensure username exists and password is correct
+                if len(rows) != 1 or not check_password_hash(rows[0]["hash"], session.get("password")):
+                    flash('Error: redirecting', 'error')
+                    return render_template("login.html")
+
+                # Remember which user has logged in
+                session["user_id"] = rows[0]["id"]
+
+                # Redirect user to home page
+                flash("User registered successfully", "success")
+                return redirect("/")
+                
             except Exception as e:
                 print(f"Error inserting into database: {e}")
                 return apology("Error during registration")
@@ -305,27 +319,41 @@ def register():
     if request.method == "POST":
         # Check if username, email, password, confirmation, and phone were submitted
         if not request.form.get("username"):
-            return apology("Must provide username")
+            flash(u'Must provide username', 'error')
+            return redirect("/register")
         elif not request.form.get("email"):
-            return apology("Must provide email")
+            flash(u'Must provide email', 'error')
+            return redirect("/register")
         elif not request.form.get("password"):
-            return apology("Must provide password")
+            flash(u'Must provide password', 'error')
+            return redirect("/register")
         elif not request.form.get("confirmation"):
-            return apology("Must confirm password")
+            flash(u'Must confirm password', 'error')
+            return redirect("/register")
         elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("Passwords do not match")
+            flash(u'Passwords do not match', 'error')
+            return redirect("/register")
         elif not request.form.get("phone"):
-            return apology("Must provide phone number")
+            flash(u'Must provide phone number', 'error')
+            return redirect("/register")
 
         # Add email and phone number validation
         # For Email
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         if not re.fullmatch(regex, request.form.get("email")):
-            return apology("Enter a valid email")
+            flash(u'Enter a valid email', 'error')
+            return redirect("/register")
+            
         # For Phone number
         phone_regex = r"(\+\d{1,3})?\s?\(?\d{1,4}\)?[\s.-]?\d{3}[\s.-]?\d{4}"
         if not re.fullmatch(phone_regex, request.form.get("phone")):
-            return apology("Enter a valid phone number")
+            flash(u'Enter a valid phone number', 'error')
+            return redirect("/register")
+            
+        check = db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("username"))
+        if len(check) != 0:
+            flash(u'Username already taken ', 'error')
+            return redirect("/register")
         
         session["username"] = request.form.get("username")
         session["password"] = request.form.get("password")
