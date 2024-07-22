@@ -327,6 +327,8 @@ def register():
         if not re.fullmatch(phone_regex, request.form.get("phone")):
             return apology("Enter a valid phone number")
         
+        
+        
         session["username"] = request.form.get("username")
         session["password"] = request.form.get("password")
         session["email"] = request.form.get("email")
