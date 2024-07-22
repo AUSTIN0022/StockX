@@ -293,7 +293,7 @@ def verify_otp_registration():
 
                 # Ensure username exists and password is correct
                 if len(rows) != 1 or not check_password_hash(rows[0]["hash"], session.get("password")):
-                    flash('Invalid credentials', 'error')
+                    flash('Error: redirecting', 'error')
                     return render_template("login.html")
 
                 # Remember which user has logged in
