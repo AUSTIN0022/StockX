@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import re
 import secrets
@@ -86,6 +87,11 @@ def index():
         data["value"] = data["price"] * data["total_shares"]
         total_value += data["value"]
         grand_total += data["value"]
+        
+    user_ip = request.remote_addr
+    user_agent = request.headers.get('User-Agent')
+    logging.info(f"\n\nIncoming request from IP: {user_ip}, User-Agent: {user_agent}\n\n")
+   
 
     return render_template("index.html",
                            stock_data=stock_data, cash=cash, total_value=total_value, grand_total=grand_total)
