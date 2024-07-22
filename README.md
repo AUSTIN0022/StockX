@@ -9,8 +9,8 @@ My key goal with StockX is to provide an engaging, realistic experience for user
 I consciously designed the web interface to be clean, intuitive, and mobile-friendly. Interactive visualizations help users spot trends and opportunities. By focusing on learnability, my intention is for even investment novices to quickly grasp platform workflows.
 
 ### Sample
-Username: demo
-password: demo
+- Username: demo
+- password: demo
 
 ## Video Demo
 
