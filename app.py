@@ -386,9 +386,11 @@ def sell():
         shares = request.form.get("shares")
 
         if not symbol:
-            return apology("must povide symbol")
+            flash("must povide symbol","error")
+            return redirect("/sell")
         elif not shares or not shares.isdigit() or int(shares) <= 0:
-            return apology("must provide  position number of shares")
+            flash("must provide  position number of shares","error")
+            return redirect("/sell")
         else:
             shares = int(shares)
 
@@ -411,7 +413,7 @@ def sell():
                         "INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?);",
                         user_id, symbol, -shares, price)
 
-                    flash(f"sold {shares} shares of {symbol} for {usd(total_sale)} ")
+                    flash(f"sold {shares} shares of {symbol} for {usd(total_sale)} ","success")
                     return redirect("/")
         return apology("symbol not found")
 
