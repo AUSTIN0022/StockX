@@ -540,7 +540,7 @@ def search():
         if 'bestMatches' in search_results:
             symbol = search_results['bestMatches'][0].get('1. symbol', None)
 
-            flash(f"{company_name} ticker symbol is {symbol}")
+            flash(f"{company_name} ticker symbol is {symbol}","success")
             return redirect(url_for("index"))
 
 
